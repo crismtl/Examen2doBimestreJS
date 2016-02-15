@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('tab.pastels', {
-        url: '/pastels',
+        url: '/:idUsuario/pastels',
         views: {
             'tab-users': {
                 templateUrl: 'templates/pastels.html',

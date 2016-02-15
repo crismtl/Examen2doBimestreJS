@@ -64,6 +64,72 @@ angular.module('starter.controllers', [])
 .controller('PastelsCtrl', function ($scope, $stateParams) {
     console.log('ingreso a pastels ctrl');
 
+    $scope.pasteles = [];
+
+    $scope.filtro = $stateParams.idUsuario;
+
+    console.log($scope.filtro);
+
+    function filtrarArray(array) {
+        for (var i = 0; i < array.length; i++) {
+            if ($stateParams.idUsuario == array[i].idUsuario.id) {
+                console.log(array[i].idUsuario.id)
+                $scope.pasteles.push(array[i]);
+            }
+        }
+    }
+
+    io.socket.get('http://localhost:1337/Pastel',
+        function (resData, jwres) {
+            console.log('Se suscribio con blueprint de Sailsjs')
+            console.log(resData);
+            //console.log(resData[0]);
+            $scope.pastelesSinFiltrar = resData;
+            filtrarArray($scope.pastelesSinFiltrar)
+            $scope.$digest();
+        });
+
+    io.socket.get('http://localhost:1337/Pastel/suscribirseOPublicar',
+        function (resData, jwres) {
+            console.log('Se suscribio con nuestro metodo suscribirseOPublicar...');
+            console.log(jwres);
+            console.log('No hay datos porq es nuestro metodo...');
+            console.log(resData);
+        });
+
+    io.socket.on('pastel', function (obj) {
+        console.log('Respondio del Servidor');
+        console.log(obj);
+        console.log('Verbo');
+        console.log(obj.verb);
+
+        if (obj.verb === 'created') {
+            if ($stateParams.idUsuario == obj.data.idUsuario) {
+                console.log(obj.data.idUsuario)
+                $scope.pasteles.push(obj.data);
+            }
+            $scope.$digest();
+        }
+        if (obj.verb === 'destroyed') {
+            $scope.indice = buscarIdArray(obj.id);
+            $scope.pasteles.splice($scope.indice, 1);
+            $scope.$digest();
+        }
+        if (obj.verb === 'updated') {
+            $scope.indice = buscarIdArray(obj.id);
+            console.log(obj.data);
+            $scope.pasteles[$scope.indice] = obj.data;
+            $scope.$digest();
+        }
+    });
+
+    function buscarIdArray(id) {
+        for (var i = 0; i < $scope.pasteles.length; i++) {
+            if ($scope.pasteles[i].id == id) {
+                return i;
+            }
+        }
+    }
 })
 
 .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {

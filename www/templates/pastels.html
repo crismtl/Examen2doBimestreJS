@@ -1,9 +1,17 @@
-<ion-view view-title="Pasteles">
-    <ion-content class="padding">
-        <!--<img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
-        <p>
-            {{chat.lastText}}
-        </p>-->
-        <h1>pasteles</h1>
+<ion-view view-title="Mis Pasteles">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="pastel in pasteles" type="item-text-wrap" href="#/">
+                <img src="img/cake.jpg">
+                <h2>{{pastel.nombre}}</h2>
+                <h4>Tipo: {{pastel.tipo}}</h4>
+                <p>{{pastel.preparacion}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <!--<ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>-->
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
