@@ -1,0 +1,31 @@
+<ion-view view-title="Nuevo Usuario">
+    <ion-content>
+        <form ng-submit="agregarUsuario()">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Nombre</span>
+                    <input ng-model="nuevoUsuario.nombre" type="text" placeholder="Nombre">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Apellido</span>
+                    <input ng-model="nuevoUsuario.apellido" type="text" placeholder="Apellido">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Edad</span>
+                    <input ng-model="nuevoUsuario.edad" type="number" placeholder="Edad">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Correo</span>
+                    <input ng-model="nuevoUsuario.correo" type="email" placeholder="Correo">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Ciudad</span>
+                    <input ng-model="nuevoUsuario.ciudad" type="text" placeholder="Ciudad">
+                </label>
+                <button class="button button-full button-positive" type="submit">
+                    Enviar
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
